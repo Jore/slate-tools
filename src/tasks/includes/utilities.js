@@ -71,35 +71,18 @@ const utilities = {
    * @param {Function} $ - jQuery reference
    * @param {fs} file - reference to current icon file?
    */
-  processSvg: ($, file) => {
-    var $svg = $('svg'); // eslint-disable-line no-var
-    var $newSvg = $('<svg aria-hidden="true" focusable="false" role="presentation" class="icon" />'); // eslint-disable-line no-var
-    var fileName = file.relative.replace('.svg', ''); // eslint-disable-line no-var
-    var viewBoxAttr = $svg.attr('viewbox'); // eslint-disable-line no-var
+  processSvg: function processSvg($, file) {
+      var $svg = $('svg'); // eslint-disable-line no-var
+      var $newSvg = $('<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="presentation" class="icon {{ class }}" />'); // eslint-disable-line no-var
+      var fileName = file.relative.replace('.svg', ''); // eslint-disable-line no-var
+      var viewBoxAttr = $svg.attr('viewbox'); // eslint-disable-line no-var
 
-    // Add necessary attributes
-    if (viewBoxAttr) {
-      var width = parseInt(viewBoxAttr.split(' ')[2], 10); // eslint-disable-line no-var
-      var height = parseInt(viewBoxAttr.split(' ')[3], 10); // eslint-disable-line no-var
-      var widthToHeightRatio = width / height; // eslint-disable-line no-var
-      if (widthToHeightRatio >= 1.5) {
-        $newSvg.addClass('icon--wide');
-      }
+      $newSvg.addClass(fileName).append($svg.contents());
+
+      $newSvg.append($svg.contents());
       $newSvg.attr('viewBox', viewBoxAttr);
-    }
-
-    // Add required classes to full color icons
-    if (file.relative.indexOf('-full-color') >= 0) {
-      $newSvg.addClass('icon--full-color');
-    }
-
-    $newSvg
-      .addClass(fileName)
-      .append($svg.contents());
-
-    $newSvg.append($svg.contents());
-    $svg.after($newSvg);
-    $svg.remove();
+      $svg.after($newSvg);
+      $svg.remove();
   },
 
   /**
