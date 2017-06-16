@@ -72,17 +72,17 @@ const utilities = {
    * @param {fs} file - reference to current icon file?
    */
   processSvg: function processSvg($, file) {
-      var $svg = $('svg'); // eslint-disable-line no-var
-      var $newSvg = $('<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="presentation" class="icon {{ class }}" />'); // eslint-disable-line no-var
-      var fileName = file.relative.replace('.svg', ''); // eslint-disable-line no-var
-      var viewBoxAttr = $svg.attr('viewbox'); // eslint-disable-line no-var
+    var $svg = $('svg'); // eslint-disable-line no-var
+    var $newSvg = $('<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="presentation" class="icon {{ class }}" />'); // eslint-disable-line no-var
+    var fileName = file.relative.replace('.svg', ''); // eslint-disable-line no-var
+    var viewBoxAttr = $svg.attr('viewbox'); // eslint-disable-line no-var
 
-      $newSvg.addClass(fileName).append($svg.contents());
+    $newSvg.addClass(fileName).append($svg.contents());
 
-      $newSvg.append($svg.contents());
-      $newSvg.attr('viewBox', viewBoxAttr);
-      $svg.after($newSvg);
-      $svg.remove();
+    $newSvg.append($svg.contents());
+    $newSvg.attr('viewBox', viewBoxAttr);
+    $svg.after($newSvg);
+    $svg.remove();
   },
 
   /**
